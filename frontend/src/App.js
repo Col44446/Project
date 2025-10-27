@@ -9,7 +9,7 @@ import './App.css';
  * Communicates with PHP backend API for data persistence.
  */
 
-const API_URL = 'http://localhost:8000/api.php';
+const API_URL = 'http://localhost/Project/api.php';
 
 function App() {
   // State management for sewadar list, form input, loading status, and error messages

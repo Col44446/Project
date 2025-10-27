@@ -2,7 +2,7 @@
 /**
  * Sewadar Management API
  * 
- * RESTful API for managing sewadar records using SQLite database.
+ * RESTful API for managing sewadar records using MySQL database via XAMPP.
  * Supports GET (retrieve all) and POST (create new) operations.
  */
 
@@ -21,28 +21,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit();
 }
 
-// Verify SQLite PDO extension is available
-if (!extension_loaded('pdo_sqlite')) {
-    http_response_code(500);
-    echo json_encode(array("message" => "SQLite PDO extension is not enabled. Please enable it in php.ini"));
-    exit();
-}
+// Database configuration for XAMPP MySQL
+$host = "localhost";
+$dbname = "sewadar_db";
+$username = "root";
+$password = "";
 
-// Initialize SQLite database connection
-$dbFile = __DIR__ . '/sewadars.db';
-
+// Initialize MySQL database connection
 try {
-    $db = new PDO('sqlite:' . $dbFile);
+    $db = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    
-    // Create sewadars table if it doesn't exist
-    $db->exec("
-        CREATE TABLE IF NOT EXISTS sewadars (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            name TEXT NOT NULL,
-            created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-        )
-    ");
 } catch(PDOException $e) {
     http_response_code(500);
     echo json_encode(array("message" => "Database connection failed: " . $e->getMessage()));
