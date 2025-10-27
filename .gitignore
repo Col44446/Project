@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# Database
+sewadars.db
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build
+frontend/build/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Environment
+.env
+.env.local
