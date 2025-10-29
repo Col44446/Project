@@ -2,31 +2,18 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './App.css';
 
-/**
- * Sewadar Management Application
- * 
- * Main component that manages sewadar records with create and list functionality.
- * Communicates with PHP backend API for data persistence.
- */
-
-const API_URL = 'http://localhost/Project/api.php';
+const API_URL = 'http://localhost/Project/api/sewadars';
 
 function App() {
-  // State management for sewadar list, form input, loading status, and error messages
   const [sewadars, setSewadars] = useState([]);
   const [sewadarName, setSewadarName] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  // Fetch sewadars on component mount
   useEffect(() => {
     fetchSewadars();
   }, []);
 
-  /**
-   * Fetch all sewadar records from the backend API
-   * Updates state with retrieved data or sets error message on failure
-   */
   const fetchSewadars = async () => {
     try {
       setLoading(true);
@@ -41,16 +28,9 @@ function App() {
     }
   };
 
-  /**
-   * Handle form submission to add a new sewadar
-   * Validates input, sends POST request, and refreshes the list on success
-   * 
-   * @param {Event} e - Form submission event
-   */
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    // Validate that name field is not empty
     if (!sewadarName.trim()) {
       setError('Please enter a sewadar name');
       return;
